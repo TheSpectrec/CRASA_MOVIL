@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from "react-nati
 import { LinearGradient } from "expo-linear-gradient";
 
 
-const Button = () => {
+const Button = ({ onPress }) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <LinearGradient
                 colors={['#F3DB30', '#E87D38']}
                 start={{ x: 0, y: 0 }}

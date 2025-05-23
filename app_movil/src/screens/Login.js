@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { StyleSheet, Text, View, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, BackHandler } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Svg, { Path, Defs, LinearGradient, Stop, Pattern, Image, Use } from "react-native-svg"
 import Button from '../components/Button';
 
@@ -9,6 +10,12 @@ const { width } = Dimensions.get('window')
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigation = useNavigation();
+  
+  const handleLogin = () => {
+    // Aquí iría la lógica de autenticación 
+    navigation.navigate('main');
+  };
 
   function SvgTop() {
     return (
@@ -131,7 +138,7 @@ const Login = () => {
                 </TouchableWithoutFeedback>
               </View>
               <Text style={styles.forgotPassword}>¿Olvidaste tu contraseña?</Text>
-              <Button />
+              <Button onPress={handleLogin} />
               <StatusBar style="auto" />
             </View>
           </View>

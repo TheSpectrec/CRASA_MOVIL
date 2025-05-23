@@ -24,10 +24,10 @@ function MainTabs() {
         headerShown: false
       }}
     >
-      <Tab.Screen name="alertas" component={HomeScreen} />
-      <Tab.Screen name="ventas" component={ExploreScreen} />
-      <Tab.Screen name="cuotas" component={SettingsScreen} />
-      <Tab.Screen name="perfil" component={ProfileScreen} />
+      <Tab.Screen name="alertas" component={Notifications} />
+      <Tab.Screen name="ventas" component={Sales} />
+      <Tab.Screen name="cuotas" component={Targets} />
+      <Tab.Screen name="perfil" component={Profile} />
     </Tab.Navigator>
   );
 }
