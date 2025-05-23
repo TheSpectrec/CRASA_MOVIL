@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import TabBarButton from './TabBarButton';
 
+
 export function TabBar({ state, descriptors, navigation }) {
     const [dimensions, setDimensions] = useState({ height: 20, width: 100});
 
@@ -94,10 +95,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 45,
         paddingVertical: 10,
         borderRadius: 35,
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 10},
-        shadowRadius: 10,
-        shadowOpacity: 0.1,
+        // Configuración de sombra unificada para iOS y Android
+        shadowColor: '#454545',
+        shadowOffset: {width: 0, height: 0},
+        shadowRadius: 12,
+        shadowOpacity: 0.25,
+        elevation: 4,
     },
     tabbarItem: {
         flex: 1,
