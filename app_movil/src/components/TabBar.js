@@ -1,11 +1,13 @@
 import { View, StyleSheet } from 'react-native';
 import { useState } from 'react';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, interpolate } from 'react-native-reanimated';
 import TabBarButton from './TabBarButton';
+import { useTabBar } from '../contexts/TabBarContext';
 
 
 export function TabBar({ state, descriptors, navigation }) {
     const [dimensions, setDimensions] = useState({ height: 20, width: 100});
+    const { tabBarVisibility } = useTabBar();
 
     const buttonWidth = dimensions.width / state.routes.length;
 
@@ -25,9 +27,22 @@ export function TabBar({ state, descriptors, navigation }) {
             }]
         }
     })
+    
+    const tabBarAnimatedStyle = useAnimatedStyle(() => {
+        const translateY = interpolate(
+            tabBarVisibility.value,
+            [0, 1],
+            [100, 0] // Move from 100 (hidden) to 0 (visible)
+        );
+        
+        return {
+            transform: [{ translateY }],
+            opacity: tabBarVisibility.value,
+        };
+    });
 
     return (
-        <View onLayout={onTabbarLayout} style={styles.tabbar}>
+        <Animated.View onLayout={onTabbarLayout} style={[styles.tabbar, tabBarAnimatedStyle]}>
             <Animated.View style = {[animatedStyle, {
                 position: 'absolute',
                 backgroundColor: '#E87D38',
@@ -80,7 +95,7 @@ export function TabBar({ state, descriptors, navigation }) {
                     />
                 )
             })}
-        </View>
+        </Animated.View>
     );
 }
 

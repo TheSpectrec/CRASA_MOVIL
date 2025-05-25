@@ -5,6 +5,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TabBar } from './src/components/TabBar';
 
+// Providers
+import { NotificationsProvider } from './src/contexts/NotificationsContext';
+import { TabBarProvider } from './src/contexts/TabBarContext';
+
 // Screens
 import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
@@ -35,12 +39,16 @@ function MainTabs() {
 // App Root
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="main" component={MainTabs} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <NotificationsProvider>
+      <TabBarProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen name="main" component={MainTabs} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </TabBarProvider>
+    </NotificationsProvider>
   );
 }
 

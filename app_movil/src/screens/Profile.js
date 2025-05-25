@@ -18,7 +18,7 @@ const Profile = ({ navigation }) => {
             [
                 {
                     text: "Cancelar",
-                    onPress: () => console.log("Cancelado"),
+                    onPress: () => console.log("Cancelado el cierre de sesión"),
                     style: "cancel"
                 },
                 {
@@ -71,19 +71,17 @@ export default Profile;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f9fafb",
+        backgroundColor: Colors.containerColor,
     },
     header: {
         padding: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: "#e5e7eb",
-        backgroundColor: "#ffffff",
+        flexDirection: "row",
+        alignItems: "center",
         top: 15,
     },
     headerTitle: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: "bold",
-        color: "#111827",
     },
     content: {
         flex: 1,
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         marginBottom: 20,
-        marginTop: 20,
+
     },
     avatar: {
         width: 64,
