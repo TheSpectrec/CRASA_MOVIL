@@ -15,6 +15,7 @@ import Profile from './src/screens/Profile';
 import Notifications from './src/screens/seller/Notifications';
 import Sales from './src/screens/seller/Sales';
 import Targets from './src/screens/seller/Targets';
+import Quotas from './src/screens/seller/Quotas';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,7 +31,7 @@ function MainTabs() {
     >
       <Tab.Screen name="alertas" component={Notifications} />
       <Tab.Screen name="ventas" component={Sales} />
-      <Tab.Screen name="cuotas" component={Targets} />
+      <Tab.Screen name="cuotas" component={Quotas} />
       <Tab.Screen name="perfil" component={Profile} />
     </Tab.Navigator>
   );

@@ -1,7 +1,9 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput, FlatList } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Search, X as CloseIcon, ChevronDown, RefreshCw as RefreshIcon } from "lucide-react-native";
+import Animated, { useAnimatedScrollHandler, withTiming } from "react-native-reanimated";
+import { useTabBar } from "../../contexts/TabBarContext";
 
 // Simple data
 const sampleData = {
@@ -98,6 +100,21 @@ const Sales = () => {
 
     const [searchText, setSearchText] = useState("")
     const [currentModalData, setCurrentModalData] = useState([])
+
+    // Tab bar visibility on scroll
+    const { tabBarVisibility } = useTabBar()
+    const lastScrollY = useRef(0)
+    const scrollHandler = useAnimatedScrollHandler({
+        onScroll: (event) => {
+            const currentY = event.contentOffset.y
+            if (currentY < lastScrollY.current || currentY <= 0) {
+                tabBarVisibility.value = withTiming(1, { duration: 300 })
+            } else if (currentY > lastScrollY.current && currentY > 10) {
+                tabBarVisibility.value = withTiming(0, { duration: 300 })
+            }
+            lastScrollY.current = currentY
+        },
+    })
 
     const openModal = (type) => {
         setSearchText("")
@@ -318,7 +335,7 @@ const Sales = () => {
     )
   
     return (
-      <ScrollView style={styles.container}>
+      <Animated.ScrollView style={styles.container} onScroll={scrollHandler} scrollEventThrottle={16}>
         {/* Header con selector de reporte */}
         <View style={styles.headerContainer}>
           <Text style={styles.title}>Ventas</Text>
@@ -427,7 +444,7 @@ const Sales = () => {
         {renderFilterModal("family", "Familia")}
         {renderFilterModal("client", "Cliente")}
         {renderFilterModal("product", "Producto")}
-      </ScrollView>
+      </Animated.ScrollView>
     )
   }
   
