@@ -4,6 +4,9 @@ import { Picker } from "@react-native-picker/picker";
 import { Search, X as CloseIcon, ChevronDown, RefreshCw as RefreshIcon } from "lucide-react-native";
 import Animated, { useAnimatedScrollHandler, withTiming } from "react-native-reanimated";
 import { useTabBar } from "../../contexts/TabBarContext";
+import PesosReport from "./PesosReport";
+import ProductsReport from "./ProductsReport";
+import FamiliesReport from "./FamiliesReport";
 
 // Simple data
 const sampleData = {
@@ -434,9 +437,9 @@ const Sales = () => {
         {/* Contenido según el reporte seleccionado */}
         {selectedReport === "general" && renderGeneralReport()}
         {selectedReport === "boxes" && renderOtherReport("Reporte de cajas")}
-        {selectedReport === "products" && renderOtherReport("Reporte de productos")}
-        {selectedReport === "pesos" && renderOtherReport("Reporte de pesos")}
-        {selectedReport === "families" && renderOtherReport("Reporte de familias")}
+        {selectedReport === "products" && <ProductsReport />}
+        {selectedReport === "pesos" && <PesosReport />}
+        {selectedReport === "families" && <FamiliesReport />}
         {selectedReport === "brands" && renderOtherReport("Reporte de marcas")}
   
         {/* Modales */}
