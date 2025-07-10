@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { StyleSheet, Text, View, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, BackHandler, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path, Defs, LinearGradient, Stop, Pattern, Image, Use } from "react-native-svg"
 import Button from '../components/Button';
@@ -9,12 +9,22 @@ import Button from '../components/Button';
 const { width } = Dimensions.get('window')
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigation = useNavigation();
   
-  const handleLogin = () => {
-    // Aquí iría la lógica de autenticación 
-    navigation.navigate('main');
+    const handleLogin = () => {
+    // Credenciales estáticas
+    if (email === 'seller@example.com' && password === '1234') {
+      navigation.navigate('seller');
+      return;
+    }
+    if (email === 'supervisor@example.com' && password === '1234') {
+      navigation.navigate('supervisor');
+      return;
+    }
+    Alert.alert('Credenciales incorrectas', 'Verifica tu correo y contraseña.');
   };
 
   function SvgTop() {
@@ -116,6 +126,8 @@ const Login = () => {
               <Text style={styles.subTitle}>Inicia sesión con tu cuenta</Text>
               <TextInput
                 placeholder="Correo electrónico"
+                 value={email}
+                 onChangeText={setEmail}
                 style={styles.textInput}
                 keyboardType='email-address'
                 autoCapitalize='none'
@@ -123,6 +135,8 @@ const Login = () => {
               <View style={styles.passwordContainer}>
                 <TextInput
                   placeholder="Contraseña"
+                   value={password}
+                   onChangeText={setPassword}
                   style={styles.passwordInput}
                   secureTextEntry={!showPassword}
                 />

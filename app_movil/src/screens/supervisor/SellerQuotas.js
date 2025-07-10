@@ -1,15 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Targets = () => {
+const SellerQuotas = () => {
     return (
         <View style={styles.container}>
-            <Text>Targets</Text>
+            <Text>Seller Targets</Text>
         </View>
     );
 }
 
-export default Targets;
+export default SellerQuotas;
 
 const styles = StyleSheet.create({
     container: {

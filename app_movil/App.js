@@ -12,16 +12,23 @@ import { TabBarProvider } from './src/contexts/TabBarContext';
 // Screens
 import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
+
+// Seller screens
 import Notifications from './src/screens/seller/Notifications';
 import Sales from './src/screens/seller/Sales';
-import Targets from './src/screens/seller/Targets';
 import Quotas from './src/screens/seller/Quotas';
+
+// Supervisor screens
+import SupNotifications from './src/screens/supervisor/Notifications';
+import SupSales from './src/screens/supervisor/Sales';
+import SellerQuotas from './src/screens/supervisor/SellerQuotas';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 // Tab Navigator
-function MainTabs() {
+// Seller tab navigator
+function SellerTabs() {
   return (
     <Tab.Navigator
       tabBar={(props) => <TabBar {...props} />}
@@ -38,6 +45,18 @@ function MainTabs() {
 }
 
 // App Root
+// Supervisor tab navigator
+function SupervisorTabs() {
+  return (
+    <Tab.Navigator tabBar={(props) => <TabBar {...props} />} screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="alertas" component={SupNotifications} />
+      <Tab.Screen name="ventas" component={SupSales} />
+      <Tab.Screen name="cuotas" component={SellerQuotas} />
+      <Tab.Screen name="perfil" component={Profile} />
+    </Tab.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <NotificationsProvider>
@@ -45,7 +64,8 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="login" component={Login} />
-            <Stack.Screen name="main" component={MainTabs} />
+            <Stack.Screen name="seller" component={SellerTabs} />
+            <Stack.Screen name="supervisor" component={SupervisorTabs} />
           </Stack.Navigator>
         </NavigationContainer>
       </TabBarProvider>

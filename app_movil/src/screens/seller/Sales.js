@@ -4,11 +4,14 @@ import { Picker } from "@react-native-picker/picker";
 import { Search, X as CloseIcon, ChevronDown, RefreshCw as RefreshIcon, CloseCircle, Check } from "lucide-react-native";
 import Animated, { useAnimatedScrollHandler, withTiming } from "react-native-reanimated";
 import { useTabBar } from "../../contexts/TabBarContext";
-import PesosReport from "./PesosReport";
-import ProductsReport from "./ProductsReport";
-import FamiliesReport from "./FamiliesReport";
-import BoxesReport from "./BoxesReport";
-import BrandsReport from "./BrandsReport";
+
+// Reports
+import PesosReport from "../PesosReport";
+import ProductsReport from "../ProductsReport";
+import FamiliesReport from "../FamiliesReport";
+import BoxesReport from "../BoxesReport";
+import BrandsReport from "../BrandsReport";
+import GeneralReport from "../GeneralReport";
 
 // Simple data
 const sampleData = {
@@ -416,12 +419,10 @@ const Sales = () => {
     )
   }
 
-  const renderGeneralReport = () => (
-    <>
+
       {renderTable(monthlyBoxesData, "Tabla de Cajas", true)}
       {renderTable(monthlyPesosData, "Tabla de Pesos ($)", false)}
-    </>
-  )
+
 
   const renderOtherReport = (reportName) => (
     <View style={styles.emptyReport}>
@@ -550,7 +551,7 @@ const Sales = () => {
       </View>
 
       {/* Contenido según el reporte seleccionado */}
-      {selectedReport === "general" && renderGeneralReport()}
+      {selectedReport === "general" && <GeneralReport />}
       {selectedReport === "boxes" && <BoxesReport />}
       {selectedReport === "products" && <ProductsReport />}
       {selectedReport === "pesos" && <PesosReport />}
