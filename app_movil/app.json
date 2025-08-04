@@ -3,7 +3,7 @@
     "name": "app_movil",
     "slug": "app_movil",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,

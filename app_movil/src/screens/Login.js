@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { StyleSheet, Text, View, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, BackHandler, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Dimensions, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, ScrollView, BackHandler, Alert, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Path, Defs, LinearGradient, Stop, Pattern, Image, Use } from "react-native-svg"
 import Button from '../components/Button';
@@ -13,6 +13,13 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  // Responsive layout helpers
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const shortSide = Math.min(windowWidth, windowHeight);
+  // Consider device a tablet when the shorter side is 600 px or larger.
+  const isTablet = shortSide >= 600;
+  const isLandscape = windowWidth > windowHeight;
+  const inputWidth = isTablet ? (isLandscape ? '40%' : '60%') : '80%';
   
     const handleLogin = () => {
     // Credenciales estáticas
@@ -108,7 +115,7 @@ const Login = () => {
       style={styles.mainContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 20}
-      enabled
+      enabled={!isTablet}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView
@@ -116,10 +123,13 @@ const Login = () => {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.wrapper}>
+            {/* Render header wave only on phone portrait */}
+          {(!isTablet && !isLandscape) && (
             <View style={styles.containerSVG}>
               <SvgTop />
             </View>
-            <View style={styles.container}>
+          )}
+             <View style={[styles.container, isTablet && { marginTop: isLandscape ? 150 : 350 }]}>
               <View style={styles.logoContainer}>
                 <Logo />
               </View>
@@ -128,11 +138,11 @@ const Login = () => {
                 placeholder="Correo electrónico"
                  value={email}
                  onChangeText={setEmail}
-                style={styles.textInput}
+                style={[styles.textInput, { width: inputWidth }]}
                 keyboardType='email-address'
                 autoCapitalize='none'
               />
-              <View style={styles.passwordContainer}>
+              <View style={[styles.passwordContainer, { width: inputWidth }]}>
                 <TextInput
                   placeholder="Contraseña"
                    value={password}
@@ -179,7 +189,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   containerSVG: {
-    width: width,
+    width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
   },

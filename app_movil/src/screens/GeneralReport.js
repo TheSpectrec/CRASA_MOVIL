@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRightWidth: 1,
     borderRightColor: "#ddd",
-    minWidth: 80,
+    width: 100,
   },
   tableRow: {
     flexDirection: "row",
@@ -199,10 +199,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRightWidth: 1,
     borderRightColor: "#ddd",
-    minWidth: 80,
+    width: 100,
   },
   conceptColumn: {
-    minWidth: 120,
+    width: 140,
     textAlign: "left",
   },
   boldText: {
